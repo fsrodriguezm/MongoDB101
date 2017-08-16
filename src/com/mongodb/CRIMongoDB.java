@@ -11,21 +11,15 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class CRUDMongoDB {
+public class CRIMongoDB {
 	public static void main(String [] args){
 		try {
 			//create();
 			read();
-			//update();
 			//insert();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-
-	private static void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
