@@ -23,6 +23,8 @@ public class CRIMongoDB {
 		
 	}
 
+
+
 	private static void read() throws Exception {
 		MongoClient client = new MongoClient();
 		DB db = client.getDB("course");

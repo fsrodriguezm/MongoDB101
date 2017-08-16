@@ -1,4 +1,4 @@
-package com.mongodb;
+package com.sparkframework;
 
 import java.io.StringWriter;
 import java.util.HashMap;

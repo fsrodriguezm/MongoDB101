@@ -1,6 +1,5 @@
-package com.mongodb;
+package com.sparkframework;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
