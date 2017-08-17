@@ -2,6 +2,7 @@ package com.mongodb;
 
 import static com.mongodb.Helpers.printJson;
 import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Sorts.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +17,38 @@ import com.mongodb.client.model.Projections;
 
 public class MongoQuering {
 	public static void main(String [] args){
-		delete();
 		queringWithFilter();
 		queringWithProjection();
 		sorting();
 	}
 
-	private static void delete() {
+	private static void sorting() {
 		MongoClient client = new MongoClient();
 		MongoDatabase db = client.getDatabase("course");
-		MongoCollection<Document> coll = db.getCollection("employees");
+		MongoCollection<Document> coll = db.getCollection("findSortTest");
 		
-
-	}
-
-	private static void sorting() {
-		// TODO Auto-generated method stub
+		for(int i=0; i<10; i++) {
+			for(int x=0; x<10; x++) {
+				coll.insertOne(new Document().append("i", i).append("x", x));
+			}
+		}
+		
+		Bson projection = Projections.excludeId();
+		projection = Projections.include("i","x");
+		
+		//Sorting with document 
+		Bson sort = new Document("i", 1).append("x", -1);
+		
+		//Sorting with builder 
+		Bson sort2 = ascending("i");
+		
+		List<Document> all = coll.find()
+								.projection(projection)
+								.sort(sort)
+								.into(new ArrayList<Document>());
+		for(Document cur : all) {
+			printJson(cur);
+		}
 		
 	}
 
