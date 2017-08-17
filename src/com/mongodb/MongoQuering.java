@@ -16,15 +16,26 @@ import com.mongodb.client.model.Projections;
 
 public class MongoQuering {
 	public static void main(String [] args){
-		try {
-			//queringWithFilter();
-			queringWithProjection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		delete();
+		queringWithFilter();
+		queringWithProjection();
+		sorting();
 	}
 
-	private static void queringWithFilter() throws Exception {
+	private static void delete() {
+		MongoClient client = new MongoClient();
+		MongoDatabase db = client.getDatabase("course");
+		MongoCollection<Document> coll = db.getCollection("employees");
+		
+
+	}
+
+	private static void sorting() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void queringWithFilter() {
 		MongoClient client = new MongoClient();
 		MongoDatabase db = client.getDatabase("course");
 		MongoCollection<Document> coll = db.getCollection("employees");
@@ -48,7 +59,7 @@ public class MongoQuering {
 				
 	}
 
-	private static void queringWithProjection() throws Exception {
+	private static void queringWithProjection(){
 		MongoClient client = new MongoClient();
 		MongoDatabase db = client.getDatabase("course");
 		MongoCollection<Document> coll = db.getCollection("employees");

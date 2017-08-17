@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 public class CRIMongoDB {
@@ -23,26 +24,32 @@ public class CRIMongoDB {
 		
 	}
 
-
-
 	private static void read() throws Exception {
 		MongoClient client = new MongoClient();
-		DB db = client.getDB("course");
-		DBCollection coll = db.getCollection("insertTest");
+		MongoDatabase db = client.getDatabase("course");
+		MongoCollection<Document> coll = db.getCollection("insertTest");
 		
 		coll.drop();
 		
 		//insert 10 documents
 		for (int i=0; i<10; i++){
-			coll.insert(new BasicDBObject ("x", i));
+			coll.insertOne(new Document("x", i));
 		}
 		
 		System.out.println("Find One: ");
-		System.out.println(coll.findOne());
+		System.out.println(coll.find().first());
 		System.out.println("\n");
 		
+		System.out.println("Find all with into: ");
+		ArrayList<Document> all = coll.find().into(new ArrayList<Document>());
+		for (Document cur : all) {
+			printJson(cur);
+		}
+		System.out.println("\n");
+
+		
 		System.out.println("Find all with iteration: ");
-		DBCursor cur = coll.find();
+		MongoCursor<Document> cur = coll.find().iterator();
 		while (cur.hasNext()){
 			System.out.println(cur.next());
 		}
@@ -50,7 +57,7 @@ public class CRIMongoDB {
 		System.out.println("\n");
 		
 		System.out.println("Count: ");
-		System.out.println(coll.find().count());
+		System.out.println(coll.count());
 		
 	}
 
